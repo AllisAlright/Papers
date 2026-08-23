@@ -1,0 +1,484 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Selected Papers</title>
+    <meta
+      name="description"
+      content="A small GitHub Pages index for selected papers and PDF links."
+    />
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f7f5ef;
+        --paper: #fffdf8;
+        --ink: #202124;
+        --muted: #6e665c;
+        --line: #d9d3c7;
+        --teal: #0e6b62;
+        --rust: #9d3f2f;
+        --gold: #c49a33;
+        --shadow: 0 18px 50px rgba(36, 31, 25, 0.11);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background:
+          linear-gradient(180deg, rgba(255, 253, 248, 0.9), rgba(247, 245, 239, 1)),
+          var(--bg);
+        color: var(--ink);
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", "Noto Sans", "Helvetica Neue", Arial, sans-serif;
+        line-height: 1.5;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .shell {
+        width: min(1120px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      header {
+        padding: 42px 0 28px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .masthead {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 24px;
+        align-items: end;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(34px, 5vw, 64px);
+        line-height: 0.98;
+        letter-spacing: 0;
+      }
+
+      .lede {
+        max-width: 660px;
+        margin: 18px 0 0;
+        color: var(--muted);
+        font-size: 17px;
+      }
+
+      .count {
+        min-width: 132px;
+        border: 1px solid var(--line);
+        background: rgba(255, 253, 248, 0.72);
+        padding: 14px 16px;
+        text-align: right;
+      }
+
+      .count strong {
+        display: block;
+        font-size: 32px;
+        line-height: 1;
+      }
+
+      .count span {
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      main {
+        padding: 34px 0 54px;
+      }
+
+      .papers {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .paper-card {
+        display: grid;
+        grid-template-columns: 168px 1fr;
+        min-height: 256px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--paper);
+        box-shadow: var(--shadow);
+      }
+
+      .cover {
+        min-height: 100%;
+        background: #ede8dd;
+        border-right: 1px solid var(--line);
+      }
+
+      .cover img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
+        object-position: top center;
+      }
+
+      .paper-body {
+        display: flex;
+        min-width: 0;
+        flex-direction: column;
+        padding: 20px;
+      }
+
+      .tag {
+        width: fit-content;
+        margin-bottom: 14px;
+        border-left: 4px solid var(--gold);
+        padding-left: 9px;
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0;
+        text-transform: uppercase;
+      }
+
+      h2 {
+        margin: 0;
+        font-size: 20px;
+        line-height: 1.22;
+        letter-spacing: 0;
+      }
+
+      .meta {
+        margin: 12px 0 0;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: auto;
+        padding-top: 22px;
+      }
+
+      .button {
+        display: inline-flex;
+        min-height: 40px;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        border: 1px solid var(--ink);
+        border-radius: 7px;
+        padding: 8px 12px;
+        background: var(--ink);
+        color: #fffdf8;
+        font-size: 14px;
+        font-weight: 700;
+        text-decoration: none;
+        cursor: pointer;
+        transition:
+          transform 140ms ease,
+          background 140ms ease,
+          color 140ms ease;
+      }
+
+      .button.secondary {
+        background: transparent;
+        color: var(--ink);
+      }
+
+      .button:hover,
+      .button:focus-visible {
+        transform: translateY(-1px);
+        background: var(--teal);
+        border-color: var(--teal);
+        color: #fffdf8;
+        outline: none;
+      }
+
+      .button[data-copied="true"] {
+        border-color: var(--rust);
+        background: var(--rust);
+        color: #fffdf8;
+      }
+
+      .icon {
+        width: 16px;
+        height: 16px;
+        flex: 0 0 auto;
+      }
+
+      footer {
+        border-top: 1px solid var(--line);
+        padding: 22px 0 32px;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      @media (max-width: 880px) {
+        .masthead,
+        .papers {
+          grid-template-columns: 1fr;
+        }
+
+        .count {
+          width: fit-content;
+          text-align: left;
+        }
+      }
+
+      @media (max-width: 620px) {
+        .shell {
+          width: min(100% - 22px, 1120px);
+        }
+
+        header {
+          padding-top: 28px;
+        }
+
+        .paper-card {
+          grid-template-columns: 112px 1fr;
+          min-height: 232px;
+        }
+
+        .paper-body {
+          padding: 15px;
+        }
+
+        h2 {
+          font-size: 17px;
+        }
+
+        .meta {
+          font-size: 13px;
+        }
+
+        .actions {
+          gap: 8px;
+          padding-top: 16px;
+        }
+
+        .button {
+          min-height: 38px;
+          padding: 7px 10px;
+          font-size: 13px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="shell masthead">
+        <div>
+          <h1>Selected Papers</h1>
+          <p class="lede">
+            Research papers collected for quick review, with stable PDF links for
+            GitHub Pages and resumes.
+          </p>
+        </div>
+        <div class="count" aria-label="Paper count">
+          <strong>4</strong>
+          <span>PDF papers</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="shell">
+      <section class="papers" aria-label="Paper list">
+        <article class="paper-card">
+          <a
+            class="cover"
+            href="papers/info-age-lora-energy-harvesting-short-packet.pdf"
+            aria-label="Open PDF for 能量收集型短包通信LoRa网络的信息年龄建模与优化"
+          >
+            <img
+              src="assets/info-age-lora-energy-harvesting-short-packet.png"
+              alt="PDF cover preview"
+            />
+          </a>
+          <div class="paper-body">
+            <div class="tag">LoRa / AoI / Energy Harvesting</div>
+            <h2>能量收集型短包通信LoRa网络的信息年龄建模与优化</h2>
+            <p class="meta">PDF file: info-age-lora-energy-harvesting-short-packet.pdf</p>
+            <div class="actions">
+              <a class="button" href="papers/info-age-lora-energy-harvesting-short-packet.pdf">
+                <svg class="icon" aria-hidden="true" viewBox="0 0 24 24">
+                  <path fill="currentColor" d="M6 2h9l5 5v15H6V2Zm8 1.5V8h4.5L14 3.5ZM8 12v2h8v-2H8Zm0 4v2h8v-2H8Z" />
+                </svg>
+                Open PDF
+              </a>
+              <button
+                class="button secondary copy-link"
+                type="button"
+                data-href="papers/info-age-lora-energy-harvesting-short-packet.pdf"
+              >
+                <svg class="icon" aria-hidden="true" viewBox="0 0 24 24">
+                  <path fill="currentColor" d="M8 7a3 3 0 0 1 3-3h7a3 3 0 0 1 3 3v7a3 3 0 0 1-3 3h-1v-2h1a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1h-7a1 1 0 0 0-1 1v1H8V7Zm-5 6a3 3 0 0 1 3-3h7a3 3 0 0 1 3 3v7a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3v-7Zm3-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1H6Z" />
+                </svg>
+                Copy link
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <article class="paper-card">
+          <a
+            class="cover"
+            href="papers/information-freshness-random-access-energy-harvesting.pdf"
+            aria-label="Open PDF for Information Freshness in Random Access Networks with Energy Harvesting"
+          >
+            <img
+              src="assets/information-freshness-random-access-energy-harvesting.png"
+              alt="PDF cover preview"
+            />
+          </a>
+          <div class="paper-body">
+            <div class="tag">Random Access / AoI</div>
+            <h2>Information Freshness in Random Access Networks with Energy Harvesting</h2>
+            <p class="meta">PDF file: information-freshness-random-access-energy-harvesting.pdf</p>
+            <div class="actions">
+              <a class="button" href="papers/information-freshness-random-access-energy-harvesting.pdf">
+                <svg class="icon" aria-hidden="true" viewBox="0 0 24 24">
+                  <path fill="currentColor" d="M6 2h9l5 5v15H6V2Zm8 1.5V8h4.5L14 3.5ZM8 12v2h8v-2H8Zm0 4v2h8v-2H8Z" />
+                </svg>
+                Open PDF
+              </a>
+              <button
+                class="button secondary copy-link"
+                type="button"
+                data-href="papers/information-freshness-random-access-energy-harvesting.pdf"
+              >
+                <svg class="icon" aria-hidden="true" viewBox="0 0 24 24">
+                  <path fill="currentColor" d="M8 7a3 3 0 0 1 3-3h7a3 3 0 0 1 3 3v7a3 3 0 0 1-3 3h-1v-2h1a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1h-7a1 1 0 0 0-1 1v1H8V7Zm-5 6a3 3 0 0 1 3-3h7a3 3 0 0 1 3 3v7a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3v-7Zm3-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1H6Z" />
+                </svg>
+                Copy link
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <article class="paper-card">
+          <a
+            class="cover"
+            href="papers/spatial-capacity-random-access-poisson-networks.pdf"
+            aria-label="Open PDF for Spatial Capacity of Random Access Poisson Networks"
+          >
+            <img
+              src="assets/spatial-capacity-random-access-poisson-networks.png"
+              alt="PDF cover preview"
+            />
+          </a>
+          <div class="paper-body">
+            <div class="tag">Poisson Networks / Capacity</div>
+            <h2>Spatial Capacity of Random Access Poisson Networks</h2>
+            <p class="meta">PDF file: spatial-capacity-random-access-poisson-networks.pdf</p>
+            <div class="actions">
+              <a class="button" href="papers/spatial-capacity-random-access-poisson-networks.pdf">
+                <svg class="icon" aria-hidden="true" viewBox="0 0 24 24">
+                  <path fill="currentColor" d="M6 2h9l5 5v15H6V2Zm8 1.5V8h4.5L14 3.5ZM8 12v2h8v-2H8Zm0 4v2h8v-2H8Z" />
+                </svg>
+                Open PDF
+              </a>
+              <button
+                class="button secondary copy-link"
+                type="button"
+                data-href="papers/spatial-capacity-random-access-poisson-networks.pdf"
+              >
+                <svg class="icon" aria-hidden="true" viewBox="0 0 24 24">
+                  <path fill="currentColor" d="M8 7a3 3 0 0 1 3-3h7a3 3 0 0 1 3 3v7a3 3 0 0 1-3 3h-1v-2h1a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1h-7a1 1 0 0 0-1 1v1H8V7Zm-5 6a3 3 0 0 1 3-3h7a3 3 0 0 1 3 3v7a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3v-7Zm3-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1H6Z" />
+                </svg>
+                Copy link
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <article class="paper-card">
+          <a
+            class="cover"
+            href="papers/to-sense-or-not-to-sense-aoi-energy-harvesting-networks.pdf"
+            aria-label="Open PDF for To Sense or Not To Sense: An AoI Perspective in Energy-Harvesting Networks"
+          >
+            <img
+              src="assets/to-sense-or-not-to-sense-aoi-energy-harvesting-networks.png"
+              alt="PDF cover preview"
+            />
+          </a>
+          <div class="paper-body">
+            <div class="tag">Sensing / AoI</div>
+            <h2>To Sense or Not To Sense: An AoI Perspective in Energy-Harvesting Networks</h2>
+            <p class="meta">PDF file: to-sense-or-not-to-sense-aoi-energy-harvesting-networks.pdf</p>
+            <div class="actions">
+              <a class="button" href="papers/to-sense-or-not-to-sense-aoi-energy-harvesting-networks.pdf">
+                <svg class="icon" aria-hidden="true" viewBox="0 0 24 24">
+                  <path fill="currentColor" d="M6 2h9l5 5v15H6V2Zm8 1.5V8h4.5L14 3.5ZM8 12v2h8v-2H8Zm0 4v2h8v-2H8Z" />
+                </svg>
+                Open PDF
+              </a>
+              <button
+                class="button secondary copy-link"
+                type="button"
+                data-href="papers/to-sense-or-not-to-sense-aoi-energy-harvesting-networks.pdf"
+              >
+                <svg class="icon" aria-hidden="true" viewBox="0 0 24 24">
+                  <path fill="currentColor" d="M8 7a3 3 0 0 1 3-3h7a3 3 0 0 1 3 3v7a3 3 0 0 1-3 3h-1v-2h1a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1h-7a1 1 0 0 0-1 1v1H8V7Zm-5 6a3 3 0 0 1 3-3h7a3 3 0 0 1 3 3v7a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3v-7Zm3-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1H6Z" />
+                </svg>
+                Copy link
+              </button>
+            </div>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <footer>
+      <div class="shell">
+        Hosted with GitHub Pages. PDF links are relative, so they work under any
+        repository name.
+      </div>
+    </footer>
+
+    <script>
+      const copyButtons = document.querySelectorAll(".copy-link");
+
+      async function copyText(text) {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(text);
+          return;
+        }
+
+        const input = document.createElement("textarea");
+        input.value = text;
+        input.setAttribute("readonly", "");
+        input.style.position = "fixed";
+        input.style.opacity = "0";
+        document.body.appendChild(input);
+        input.select();
+        document.execCommand("copy");
+        document.body.removeChild(input);
+      }
+
+      copyButtons.forEach((button) => {
+        const original = button.innerHTML;
+
+        button.addEventListener("click", async () => {
+          const absolute = new URL(button.dataset.href, window.location.href).href;
+          await copyText(absolute);
+          button.dataset.copied = "true";
+          button.textContent = "Copied";
+
+          window.setTimeout(() => {
+            button.dataset.copied = "false";
+            button.innerHTML = original;
+          }, 1400);
+        });
+      });
+    </script>
+  </body>
+</html>
