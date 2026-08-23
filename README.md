@@ -66,25 +66,3 @@ PDF：[`to-sense-or-not-to-sense-aoi-energy-harvesting-networks.pdf`](papers/to-
 
 其中，前两篇侧重能量收集 Aloha 网络的信息年龄建模与更新率优化；第一篇进一步结合 LoRa 短包通信和块长度优化，面向工业物联网应用。第三篇从空间容量角度研究 Poisson 随机接入网络的退避和门限设计，为密集网络的吞吐容量优化提供理论工具。第四篇则在 AoI 框架下比较 EH-CSMA 与 EH-Aloha，回答在能量收集网络中是否值得进行信道侦听的问题。
 
-## GitHub Pages 发布方式
-
-如果仓库还没有启用 Pages，可按以下步骤操作：
-
-1. 进入 GitHub 仓库 `AllisAlright/Papers`。
-2. 打开 `Settings` -> `Pages`。
-3. Source 选择 `Deploy from a branch`。
-4. Branch 选择 `main`，文件夹选择 `/root`。
-5. 保存后等待几分钟，页面会发布到：
-
-```text
-https://allisalright.github.io/Papers/
-```
-
-## 单篇 PDF 链接
-
-```text
-https://allisalright.github.io/Papers/papers/info-age-lora-energy-harvesting-short-packet.pdf
-https://allisalright.github.io/Papers/papers/information-freshness-random-access-energy-harvesting.pdf
-https://allisalright.github.io/Papers/papers/spatial-capacity-random-access-poisson-networks.pdf
-https://allisalright.github.io/Papers/papers/to-sense-or-not-to-sense-aoi-energy-harvesting-networks.pdf
-```
