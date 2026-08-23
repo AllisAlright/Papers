@@ -1,12 +1,7 @@
 # 论文主页与研究概述
 
-这个仓库用于集中展示 4 篇与随机接入、能量收集、信息年龄和空间容量相关的论文。主页文件为 `index.html`，论文 PDF 位于 `papers/` 目录，适合通过 GitHub Pages 生成稳定网页链接并放入简历或个人主页。
+这个仓库用于集中展示 4 篇与随机接入、能量收集、信息年龄和空间容量相关的论文。主页文件为 `index.html`，论文 PDF 位于 `papers/` 目录。
 
-GitHub Pages 主页链接：
-
-```text
-https://allisalright.github.io/Papers/
-```
 
 ## 论文列表
 
